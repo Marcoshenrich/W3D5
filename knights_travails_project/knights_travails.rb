@@ -1,7 +1,7 @@
 require_relative "00_tree_node.rb"
 
 class KnightPathFinder 
-    attr_reader :cons_pos
+    attr_reader :cons_pos, :start_pos
 
     def initialize(start_pos)
         @start_pos = PolyTreeNode.new(start_pos)
@@ -36,14 +36,34 @@ class KnightPathFinder
         return true
     end
 
+    def build_move_tree
+        node_queue = [@start_pos]
+        until @cons_pos.length == 64
+            removed = node_queue.shift
+            poss_moves_arr = self.new_move_positions(removed.value)        
+            poss_moves_arr.each do |move|
+                node = PolyTreeNode.new(move)
+                node.parent = removed
+                node_queue << node
+            end
+        end
+    end
+#  when we initialize knight finder we give it starting pos 
+#  that pos = node 
+#  what we call on the value of that node is .new_move_positions(pos)
+#  return value is all possible locations not visited yet 
+#  all elements of that return must become nodes 
+#  the source node becomes the parent to those nodes 
+#  loop ends when @cons_pos contains 64 elements
+#  can call bfs from PolyTree, that we can call on root once that's filled  
 end
 
 #     0     1    2    3    4    5   6    7
 # 0 [A, nil, nil, nil, nil, nil, nil, nil],  
-# 1 [nil, nil, nil, mov, nil, mov, nil, nil],
-# 2 [nil, A2, mov, nil, nil, nil, mov, nil],
+# 1 [nil, nil, A2, mov, nil, mov, nil, nil],
+# 2 [nil, A2, mov, A4, nil, nil, mov, nil],
 # 3 [nil, nil, nil, nil, kgt, nil, nil, nil],
-# 4 [nil, nil, mov, nil, nil, nil, mov, nil],
+# 4 [nil, nil, A3, nil, nil, nil, mov, nil],
 # 5 [nil, nil, nil, mov, nil, mov, nil, nil],
 # 6 [nil, nil, nil, nil, nil, nil, nil, nil],
 # 7 [nil, nil, nil, nil, nil, nil, nil, B]]
@@ -58,3 +78,5 @@ end
 # [4, 6] [+1, +2]
 # [5, 3] [+2, -1]
 # [5, 5] [+2, +1]
+
+

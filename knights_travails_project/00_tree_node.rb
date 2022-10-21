@@ -55,6 +55,11 @@ class PolyTreeNode
         nil
     end
 
+    def inspect
+        {"parent" => @parent == nil ? nil : @parent.value, "children"=> @children.map {|child| child == nil ? nil : child.value}, "value" => @value}
+    end
+    # 
+    # 
     #a b c
     # b the child of a
 
