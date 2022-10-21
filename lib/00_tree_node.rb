@@ -8,23 +8,24 @@ class PolyTreeNode
     end
 
     def parent=(parentnode)
+        return if self.parent == parentnode
 
-        self.parent.children - [self]    #C's children array - remove self from
-
+            #C's children array - remove self from
+        unless self.parent == nil
+            self.parent.children.delete(self)
+        end
         @parent = parentnode
 
+        #nodeB is self
+        #nodeA is parentnode
 
-
-        #nodeG is self
-        #nodeB is parentnode
-
-        unless parentnode == nil
-            parentnode.children << self
+        unless @parent == nil    
+            @parent.children << self
         end
     end
 end
 
-nodeG.parent = nodeB
+# nodeG.parent = nodeB
 
 
 
