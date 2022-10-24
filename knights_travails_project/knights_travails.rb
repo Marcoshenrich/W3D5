@@ -55,8 +55,26 @@ class KnightPathFinder
 #  all elements of that return must become nodes 
 #  the source node becomes the parent to those nodes 
 #  loop ends when @cons_pos contains 64 elements
-#  can call bfs from PolyTree, that we can call on root once that's filled  
+#  can call bfs from PolyTree, that we can call on root once that's filled 
+    def find_path(end_pos)
+        path_arr = []
+        end_node = @start_pos.dfs(end_pos)
+        until path_arr.first == @start_pos.value
+            
+            path_arr.unshift(end_node.value)
+            end_node = end_node.parent
+            
+        end
+        return path_arr
+    end
+
 end
+
+g = KnightPathFinder.new([0, 0])
+g.build_move_tree
+p g.find_path([7, 6])
+p g.find_path([6, 2])
+
 
 #     0     1    2    3    4    5   6    7
 # 0 [A, nil, nil, nil, nil, nil, nil, nil],  
