@@ -11,6 +11,20 @@ class TicTacToeNode
   end
 
   def losing_node?(evaluator)
+    other_mark = evaluator == :x ? :o : :x
+    # return true if self.board.winner == other_mark
+    self.children
+    return true if self.board.winner == other_mark
+    
+    childrens.each do |child|
+      return true if child.board.winner == other_mark
+    end 
+    # count = 0 
+    # childrens.each do |child|
+    #   count += 1 if child.losing_node?(evaluator)
+    # end
+    # return true if count == childrens.length
+    false
   end
 
   def winning_node?(evaluator)
@@ -21,7 +35,7 @@ class TicTacToeNode
 
   def children
 
-    valid_pos = []
+
     next_mark = self.next_mover_mark == :x ? :o : :x
     
     (0..2).each do |i|
@@ -32,11 +46,11 @@ class TicTacToeNode
         if @board.empty?(pos)
           newboard = board.dup
           newboard[pos] = self.next_mover_mark
-          valid_pos << TicTacToeNode.new(newboard, next_mark, pos)
+          @childrens << TicTacToeNode.new(newboard, next_mark, pos)
         end
       end
     end
-    valid_pos
+    @childrens
 
   end
   
