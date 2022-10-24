@@ -7,6 +7,7 @@ class TicTacToeNode
     @next_mover_mark = next_mover_mark
     @prev_move_pos = prev_move_pos
     @children = []
+    self.children_maker
   end
 
   def losing_node?(evaluator)
@@ -18,7 +19,7 @@ class TicTacToeNode
   # This method generates an array of all moves that can be made after
   # the current move.
 
-  def children
+  def children_maker
 
 
     # iterate through the board
@@ -39,14 +40,15 @@ class TicTacToeNode
     
     valid_pos.each do |pos|
       row, col = pos
-      newboard = @board.rows.dup
+      newboard = @board.rows.map(&:clone)
       newboard[row][col] = @next_mover_mark
       @children << TicTacToeNode.new(Board.new(newboard), ourmark, pos)
     end
+  end
+  
+end
 
-
-
-    # curret node
+# curret node
     # [nil,:X:,nil]
     # [nil,nil,nil]
     # [nil,nil,nil]
@@ -63,8 +65,3 @@ class TicTacToeNode
     # [nil,:X:,:0]
     # [nil,nil,nil]
     # [nil,nil,nil]
-
-
-  end
-  
-end
