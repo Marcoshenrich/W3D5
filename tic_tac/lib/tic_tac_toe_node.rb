@@ -7,7 +7,7 @@ class TicTacToeNode
     @next_mover_mark = next_mover_mark
     @prev_move_pos = prev_move_pos
     @children = []
-    self.children_maker
+    # self.children_maker
   end
 
   def losing_node?(evaluator)
@@ -43,6 +43,9 @@ class TicTacToeNode
       newboard = @board.rows.map(&:clone)
       newboard[row][col] = @next_mover_mark
       @children << TicTacToeNode.new(Board.new(newboard), ourmark, pos)
+      # @children.each do |child|
+      #   child.child_maker
+      # end
     end
   end
   
