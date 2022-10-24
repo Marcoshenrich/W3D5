@@ -1,9 +1,8 @@
 require_relative 'tic_tac_toe_node'
-require "byebug"
+# require "byebug"
 
 class SuperComputerPlayer < ComputerPlayer
   def move(game, mark)
-    debugger
     startnode = TicTacToeNode.new(game, mark)
     startnode.children
     

@@ -54,16 +54,16 @@ class TicTacToeNode
     (0..2).each do |i|
       (0..2).each do |z|
         
-        pos = [i,z]
+        pos = [i, z]
         
-        if @board.empty?(pos)
+        if newboard[pos] == nil
           newboard = board.dup
           newboard[pos] = self.next_mover_mark
-          @childrens << TicTacToeNode.new(newboard, next_mark, pos)
+          self.childrens << TicTacToeNode.new(newboard, next_mark, pos)
         end
       end
     end
-    @childrens
+    self.childrens
 
   end
   
